@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+   
+   <meta charset="utf-8">
+   <meta http-equiv="Content-Type" content="text/html">
+   <title>Github API + Angular</title>
+   <link rel="stylesheet" type="text/css" media="all" href="bootstrap/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+   <link rel="stylesheet" type="text/css" href="css/ng-tags-input.min.css">
+   <script src="js/jquery-1.10.2.min.js"></script>
+   <script src="js/angular1.3.min.js"></script>
+   <script type="text/javascript" src="js/ng-tags-input.min.js"></script>
+   <script type="text/javascript" src="js/app.js"></script>
+
+</head>
+
+<body ng-app="GitHubApp">
+
+<div class="container" ng-controller="GitHubController">
+   <div>
+      
+      <div class="page-header">
+        <h1>Search user information from GitHub</h1>
+      </div>
+
+      <p>Just start to enter some Github username below to see it info.</p>
+      <p>* If two or more usernames are entered, it showed us who has the most stars on their own repos.</p>
+
+      <!-- Form for usernames -->
+      <form name="userForm">
+         <tags-input 
+            ng-model="username" 
+            add-on-space="true" 
+            add-on-comma="true" 
+            add-on-paste="true" 
+            on-tag-removed="gitService.deleteUser($tag)" 
+            on-tag-added="gitService.addNewUser()"
+            placeholder="Enter github username" 
+            display-property="user_name" 
+         >
+         </tags-input>
+
+      </form>
+      <!-- End form -->
+
+
+   </div>
+
+   
+
+   <!-- USER INFO SECTION -->
+   <div class="user-block" ng-class="{'many-users' : users.length > 1}"  ng-repeat="user in users | orderBy: '-stargazers'">
+
+      <!-- GIT USERNAME WAS NOT FOUND -->
+      <div ng-if="!user.available" ng-include="'no-user.tpl'">
+      </div>
+      <!-- END GIT USERNAME WAS NOT FOUND -->
+      
+
+      <!-- GIT USERNAME FOUND -->
+      <div ng-if="user.available" class="hoverable">
+         <h2 class="user-block__name"> {{user.user_data.name}}
+            <span class="smallname">(@<a href="{{user.user_data.html_url}}" target="_blank"> {{user.user_data.login}} </a>)</span>
+         </h2>
+
+         <!-- MAIN USER INFO -->
+         <div class="user-block__info">
+
+            Followers: {{ user.user_data.followers }} - Following: {{ user.user_data.following }}<br>
+            <div class="user-block__avatar">
+               <a href="{{ user.user_data.html_url }}" class="thumbnail" target="_blank">
+                  <img src="{{ user.user_data.avatar_url }}" width="80" height="80" alt="{{ user.user_data.login }}">
+               </a>
+               <div class="caption">
+                  Repos Count: {{ user.user_data.public_repos }} <br>
+                  <span ng-show="users.length == 1">Showed Repos: {{user.repos.length}}<br></span>
+                  <span>Stars: <span class="user-block__stars stars--{{user.stargazers}}">{{user.stargazers}}</span>  </span>
+               </div>
+            </div>        
+         </div>
+         <!-- END MAIN USER INFO -->
+
+         <!-- ONLY ONE USER + REPOSITORIES -->
+         <div ng-if="users.length == 1" ng-include="'one-user.tpl'" class="user-block__reposlist clearfix"></div>
+         <!-- END ONLY ONE USER + REPOSITORIES -->
+      </div>
+      <!-- END GIT USERNAME FOUND -->
+
+   </div>
+   <!-- END USER INFO SECTION -->
+
+</div>
+
+
+
+
+
+<!-- Angular templates block -->
+
+<!-- One User Block -->
+<script type="text/ng-template" id="one-user.tpl">
+      <div class="user-block__reposlist clearfix">
+         <p ng-show="gitService.reposFound">No repos!</p>
+
+
+         <div ng-hide="gitService.reposFound">
+            <p><strong>Repos List:</strong></p>
+
+            <!-- List of repositories -->
+            <ul >
+               <li ng-repeat="repo in user.repos | orderBy:'-stargazers_count'">
+                  <a class="btn btn-primary" href="{{repo.html_url}}" target="_blank"> {{repo.name}}
+                     <span>
+                        <i class="glyphicon glyphicon-star"></i>
+                        {{repo.stargazers_count}}
+                     </span>
+                  </a>
+               </li>
+            </ul>
+            <!-- End of List of repositories -->
+         </div>
+
+      </div>
+</script>
+
+<script type="text/ng-template" id="no-user.tpl">
+   <div class="no-user">
+      <h2>{{user.username}}</h2>
+      <h2>{{user.err}}</h2>
+   </div>
+</script>
+<!-- End One User Block -->
+
+<!-- End Angular templates block -->
+
+</body>
+</html>
