@@ -1,4 +1,4 @@
-# GitHubAPI---Angular
+# GitHubAPI Angular
 Overview
 
 Build a small browser based application which uses GitHub's API to show the repositories for a given user. 
