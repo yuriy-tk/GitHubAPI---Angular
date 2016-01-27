@@ -88,6 +88,14 @@ a:hover {
   transition: border .2s ease-in-out;
 }
 
+.container {
+    border-radius: 2px;
+    background-color: #EDEDED;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.26);
+}
 
 .form-input {
   width: 250px;
@@ -148,7 +156,7 @@ a:hover {
     overflow: hidden;
     max-height: 218px;
     margin: 5px 0;
-    border: 1px solid #fff;
+    border: 1px solid transparent;
     padding: 10px;
     min-height: 218px;
 }
@@ -157,17 +165,19 @@ a:hover {
 }
 .hoverable:hover {
   border: 1px solid #8E8E8E;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.26);
 }
 .hoverable {
-  -webkit-transition: border .2s ease-in-out;
-  -o-transition: border .2s ease-in-out;
-  transition: border .2s ease-in-out;
-  border: 1px solid #fff;
-  padding: 10px;
-  background-color: #f9f9f9; 
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
 }
 .hoverable.first {
-  border: 1px solid #8E8E8E !important;
+  border: 1px solid #505050 !important;
 }
 .hoverable.first .user-block__stars {
   border: 1px solid;
