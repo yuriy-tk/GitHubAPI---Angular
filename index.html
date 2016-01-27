@@ -46,7 +46,7 @@
    
 
    <!-- USER INFO SECTION -->
-   <div class="user-block" ng-class="{'many-users' : users.length > 1}"  ng-repeat="user in users | orderBy: '-stargazers'">
+   <div class="user-block" ng-class="{'many-users' : gitService.users.length > 1}"  ng-repeat="user in gitService.users | orderBy: '-stargazers'">
 
       <!-- GIT USERNAME WAS NOT FOUND -->
       <div ng-if="!user.available" ng-include="'no-user.tpl'">
@@ -78,7 +78,7 @@
          <!-- END MAIN USER INFO -->
 
          <!-- ONLY ONE USER + REPOSITORIES -->
-         <div ng-if="users.length == 1" ng-include="'one-user.tpl'" class="user-block__reposlist clearfix"></div>
+         <div ng-if="gitService.users.length == 1" ng-include="'one-user.tpl'" class="user-block__reposlist clearfix"></div>
          <!-- END ONLY ONE USER + REPOSITORIES -->
       </div>
       <!-- END GIT USERNAME FOUND -->
@@ -97,10 +97,10 @@
 <!-- One User Block -->
 <script type="text/ng-template" id="one-user.tpl">
       <div class="user-block__reposlist clearfix">
-         <p ng-show="gitService.reposFound">No repos!</p>
+         <p ng-hide="gitService.reposFound">No repos!</p>
 
 
-         <div ng-hide="gitService.reposFound">
+         <div ng-show="gitService.reposFound">
             <p><strong>Repos List:</strong></p>
 
             <!-- List of repositories -->
