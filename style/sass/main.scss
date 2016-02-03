@@ -1,0 +1,118 @@
+@import url('http://fonts.googleapis.com/css?family=Oldenburg');
+
+#loader {
+  margin: 15px;
+  display: block;
+  width: 50px;
+  margin: 15px auto;
+  -webkit-transition: border .2s ease-in-out;
+  -o-transition: border .2s ease-in-out;
+  transition: border .2s ease-in-out;
+}
+
+.container {
+    border-radius: 2px;
+    background-color: #EDEDED;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.26);
+    
+    .form-input {
+		width: 250px;
+		float: left;
+		margin-right: 25px;
+	}
+
+}
+
+
+/* page content styles */
+.user-block {
+	&.many-users {
+	    overflow: hidden;
+	    max-height: 218px;
+	    margin: 0;
+	    border: 1px solid transparent;
+	    padding: 10px;
+	    min-height: 218px;
+	    &:hover {
+		  overflow: visible;
+	    }
+
+	}
+	.user-block__name {
+		span {
+		  font-size: 0.75em;
+		  color: #a9a9a9;
+		  font-style: italic;
+		}
+	}
+	.user-block__info {
+	  text-align: center;
+	}
+
+	.user-block__avatar {
+	    text-align: center;
+	    margin-right: 7px;
+	    margin-bottom: 7px;
+	    display: block;
+	    margin: 0 auto;
+	    .thumbnail {
+		  margin: 3px auto;
+		  max-width: 100px;
+		  display: block;
+		}
+	}
+
+	.user-block__reposlist {
+	  display: block;
+	  clear: both;
+	  width: 100%;
+	  ul {
+  		font-size: 1.2em;
+  		> li {
+  			display: block;
+  			a {
+			  padding: 3px 9px;
+			  display: block;
+			  float: left;
+			  margin-right: 10px;
+			  margin-bottom: 10px;
+			  text-decoration: none;
+			  span {
+			  	font-family: "Courier New", Courier, "Lucida Typewriter", monospace;
+  				font-size: 0.9em;
+			  }
+  			}
+  		}
+	  }
+	}
+
+	.hoverable {
+	    -webkit-transition: border .2s ease-in-out;
+	    -o-transition: border .2s ease-in-out;
+	    transition: border .2s ease-in-out;
+	    border: 1px solid #ccc;
+	    padding: 10px;
+	    background-color: #f9f9f9;
+	    &:hover {
+		  border: 1px solid #8E8E8E;
+		  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+		  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.26);
+	    }
+	    &.first {
+		  border: 1px solid #505050 !important;
+	  		.user-block__stars {
+			  border: 1px solid;
+			  padding: 2px;
+			}
+		}
+
+	}
+
+	.no-user {
+	  text-align: center;
+	}
+}
+

@@ -29,10 +29,10 @@
                // Yes. Name could be unavailable.
                if (data.name == null) data.name = data.login;
                /*Call repositories request*/
+
                service.reposRequest(username,data);
             })
             .error(function (err,status) {
-               console.log(err,status)
                // Push 'Not-Found username' just to show it in UI
                service.users.push({
                   username,
