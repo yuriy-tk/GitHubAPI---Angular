@@ -21,5 +21,6 @@ Requirements
     gulp deploy
     ```
 
-Example of use:
+
+## Example of use:
 ![alt tag](http://i.imgur.com/Tagchff.png)
