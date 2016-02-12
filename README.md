@@ -9,6 +9,18 @@ Requirements
 - If two or more names are supplied, tell us who has the most stars on their own repos
 - Add any additional info you think may be useful to see
 
+## Getting Started
+1. Install dependencies
+    
+    ```
+    npm install
+    ```
+
+3. Run gulp task
+    
+    ``` 
+    gulp deploy
+    ```
 
 Example of use:
 ![alt tag](http://i.imgur.com/Tagchff.png)
