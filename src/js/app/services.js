@@ -22,26 +22,30 @@ gitHubService.factory('GitHubService',['$http', function($http){
             method: "GET",
             url: "https://api.github.com/users/" + username
          })
-         .success(function (data) {
+         .then(function (response) {
+
             // Yes. Name could be unavailable.
-            if (data.name == null) data.name = data.login;
+            if (response.data.name == null) response.data.name = response.data.login;
+
             /*Call repositories request*/
+            return service.reposRequest(username,response.data)
 
-            service.reposRequest(username,data);
          })
-         .error(function (err,status) {
-            // Push 'Not-Found username' just to show it in UI
-            service.users.push({
-               'username':username,
-               available: false,
-               stargazers: -1,
-               repos: [],
-               err: status == 403 ? 'Query Limit Was Reached' : 'No Such User Info Found'
-            });
-
-            service.uiReload();
+         .catch(function (response) {
+            if (response.status == 404) {
+               service.users.push({
+                  'username':username,
+                  available: false,
+                  stargazers: -1,
+                  repos: [],
+                  err: response.status == 404 ? 'No Such User Info Found' : 'Query Limit Was Reached'
+               });  
+            }
+         })
+         .finally(function () {
+           service.uiReload();
          });
-
+         
       },
 
       /**
@@ -56,14 +60,14 @@ gitHubService.factory('GitHubService',['$http', function($http){
             method: "GET",
             url: "https://api.github.com/users/" + username + "/repos?per_page=100" 
          })
-         .success(function(data){
+         .then(function(response){
             var starsCount = 0;
 
-            service.reposFound = data.length > 0;
+            service.reposFound = response.data.length > 0;
 
             // If repositories available: count its stars
             if ( service.reposFound ) {
-               angular.forEach(data, function(i,index){
+               angular.forEach(response.data, function(i,index){
                   starsCount += i.stargazers_count;
                })
             }
@@ -72,17 +76,16 @@ gitHubService.factory('GitHubService',['$http', function($http){
             service.users.push({
                'username': username,
                'user_data':user_data,
-               repos: data,
+               repos: response.data,
                stargazers: starsCount,
                available: true
             });
-
-            service.uiReload();
-
+            
          })
-         .error(function(err,status){
-            console.log(err,status)
+         .finally(function () {
+           service.uiReload();
          });
+
 
       },
 
