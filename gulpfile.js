@@ -7,7 +7,9 @@ var gulp = require('gulp'),
 	rename = require('gulp-rename'),
 	webpack = require('gulp-webpack'),
 	minifycss = require('gulp-minify-css'),
-	ngAnnotate = require('gulp-ng-annotate');
+	ngAnnotate = require('gulp-ng-annotate'),
+  watch = require('gulp-watch');
+  // eslint = require('gulp-eslint'); TODO
 
 
 /* ---------------------------------- */
@@ -68,7 +70,7 @@ gulp.task('webpack:build', function() {
     return stream;
 });
 
-// TO:DO Add EsLint
+// TODO: Add EsLint
 
 gulp.task('default',['webpack:build'], function () {
 	return gulp.src('src/js/build.js')
@@ -76,6 +78,10 @@ gulp.task('default',['webpack:build'], function () {
         .pipe(ngAnnotate())
         .pipe(uglify())
 		.pipe(gulp.dest('public/js/app/'));
+});
+
+gulp.task('watch:js', function () {
+  gulp.watch('src/js/app/*.js', ['default']);
 });
 /* ---------------------------------- */
 /* --------- END APP:JS --------- */
